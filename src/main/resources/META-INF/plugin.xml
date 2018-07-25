@@ -1,0 +1,36 @@
+<idea-plugin>
+    <id>com.bruce.intellijplugin.dubboPlugin</id>
+    <name>Dubbo</name>
+    <vendor email="gejun123456@gmail.com" url="https://github.com/gejun123456/IntellijDubboPlugin">IntellijDubboPlugin</vendor>
+
+    <description><![CDATA[
+    <p><h4>1.0</h4>
+            <ul>
+                <li>create dubbo+springboot project quickly</li>
+                <li>support mybatis</li>
+                <li>support pageHelper</li>
+                <li>support lombok</li>
+                <li>support spring retry</li>
+                <li>support hikari</li>
+            </ul>
+     </p>
+     中国朋友可以加qq群讨论:796916754
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <idea-version since-build="181"/>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <moduleBuilder builderClass="com.bruce.dubboplugin.DubboPluginModuleBuilder"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>

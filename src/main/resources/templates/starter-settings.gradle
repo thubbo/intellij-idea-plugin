@@ -1,0 +1,3 @@
+package templates
+
+rootProject.name = '{{artifactId}}'
