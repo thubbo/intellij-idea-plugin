@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.3.4'
+    id 'org.jetbrains.kotlin.jvm' version '1.2.51'
+    id "com.github.hierynomus.license" version "0.14.0"
+}
+
+group 'com.bruce.intellijplugin'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.0'
+    // https://mvnrepository.com/artifact/com.samskivert/jmustache
+    compile group: 'com.samskivert', name: 'jmustache', version: '1.14'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+intellij {
+    version 'IU-2018.1'
+    updateSinceUntilBuild false
+    plugins 'Maven'
+}
+
+
+license{
+    header rootProject.file('mylicense/header.txt')
+    exclude("**/TemplateRenderer.java")
+}
