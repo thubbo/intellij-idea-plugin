@@ -96,3 +96,4 @@ fabric.properties
 .idea/httpRequests
 
 /src/test/resources/testFiles/
+/.idea/dataSources.xml
