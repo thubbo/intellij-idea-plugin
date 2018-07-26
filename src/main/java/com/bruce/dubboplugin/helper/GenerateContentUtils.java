@@ -324,7 +324,7 @@ public class GenerateContentUtils {
         model.put("kotlinStdlibArtifactId", "kotlin-stdlib-jdk8");
 
         model.put("java8OrLater", "true");
-        model.put("applicationName", userChooseDependency.getArtifactId() + "Application");
+        model.put("applicationName", "Application");
         model.put("artifactId", userChooseDependency.getArtifactId());
         model.put("baseDir", userChooseDependency.getArtifactId());
 //        model.put("boms","{}");
