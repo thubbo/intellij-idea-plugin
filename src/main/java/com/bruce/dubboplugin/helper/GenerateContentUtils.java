@@ -331,7 +331,7 @@ public class GenerateContentUtils {
         // TODO: 7/14/2018 need config them
         model.put("bootVersion", "2.0.3.RELEASE");
         model.put("build", "maven");
-        model.put("buildProperties", "io.spring.initializr.generator.BuildProperties@62547c95");
+//        model.put("buildProperties", "io.spring.initializr.generator.BuildProperties@62547c95");
         model.put("class", "class io.spring.initializr.generator.ProjectRequest");
         model.put("dependencies", "[]");
         model.put("description", "Demo project for Spring Boot");
