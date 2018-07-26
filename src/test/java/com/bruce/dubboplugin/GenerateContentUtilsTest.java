@@ -129,8 +129,6 @@ public class GenerateContentUtilsTest {
         userChooseDependency.setUseKotlin(false);
         userChooseDependency.setDependencyList(Lists.newArrayList());
         userChooseDependency.setHasProvider(false);
-//        userChooseDependency.setApiArtifactId("demoApi");
-//        userChooseDependency.setProviderArtifactId("demoProvider");
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
