@@ -34,9 +34,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GenerateContentUtils {
-    public static void generateFiles(GenerateContentContext contentContext) {
+    public static File generateFiles(GenerateContentContext contentContext) {
         //try to only use with file api, so that will be really easy to test
         String dir = contentContext.getRootPath();
+        File dirFile = new File(dir);
         UserChooseDependency userChooseDependency = contentContext.getUserChooseDependency();
         Map<String, Object> model = resolveModel(userChooseDependency);
         File projectFile = new File(dir);
@@ -53,12 +54,11 @@ public class GenerateContentUtils {
 
         if (!userChooseDependency.isHasProvider()) {
             generateFilesForOnlyCustomerCode(dir, userChooseDependency, language, model);
-            return;
+            return dirFile;
         } else {
             generateFilesForProviderCode(dir, userChooseDependency, language, model);
-            return;
+            return dirFile;
         }
-
 
 
 //        generateGitIgnore();

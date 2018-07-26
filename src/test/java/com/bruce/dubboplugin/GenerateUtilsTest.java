@@ -1,18 +1,23 @@
 package com.bruce.dubboplugin;
+
 import com.bruce.dubboplugin.dto.DependencyConstant;
+import com.bruce.dubboplugin.generator.ProjectAssert;
 import com.google.common.collect.Lists;
 import com.bruce.dubboplugin.dto.UserChooseDependency;
 
 import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.helper.GenerateContentUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class GenerateUtilsTest {
     @Test
-    public void testGenerateFilesAsProviderWithNoDependency(){
+    public void testGenerateFilesAsProviderWithNoDependency() {
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
@@ -29,16 +34,18 @@ public class GenerateUtilsTest {
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "D:\\code\\mygitlab\\dubboPlugin\\src\\test\\resources\\testFiles";
+        String rootPath = "src/test/resources/testFiles";
         deleteDirectory(new File(rootPath));
         contentContext.setRootPath(rootPath);
-        GenerateContentUtils.generateFiles(
+        File file = GenerateContentUtils.generateFiles(
                 contentContext);
+        ProjectAssert projectAssert = new ProjectAssert(file);
+        assertThat(projectAssert.isJavaProject("com.example.lala","demo"));
     }
 
 
     @Test
-    public void testGenerateFilesAsProviderWithAllDepedency(){
+    public void testGenerateFilesAsProviderWithAllDepedency() {
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
@@ -48,16 +55,16 @@ public class GenerateUtilsTest {
         userChooseDependency.setArtifactId("demo");
         userChooseDependency.setUseJava(true);
         userChooseDependency.setUseKotlin(false);
-        userChooseDependency.setDependencyList(Lists.newArrayList(DependencyConstant.MYBAITS,DependencyConstant.MYSQL,DependencyConstant.ZOOKEEPER,DependencyConstant.COMMON_LANGS_3,
-                DependencyConstant.FASTJSON,DependencyConstant.LOMBOK,DependencyConstant.PAGE_HELPER,DependencyConstant.REDIS,DependencyConstant.SPRING_RETRY,DependencyConstant.WEB_TOMCAT,
-                DependencyConstant.HIKARI,DependencyConstant.RABBIT_MQ));
+        userChooseDependency.setDependencyList(Lists.newArrayList(DependencyConstant.MYBAITS, DependencyConstant.MYSQL, DependencyConstant.ZOOKEEPER, DependencyConstant.COMMON_LANGS_3,
+                DependencyConstant.FASTJSON, DependencyConstant.LOMBOK, DependencyConstant.PAGE_HELPER, DependencyConstant.REDIS, DependencyConstant.SPRING_RETRY, DependencyConstant.WEB_TOMCAT,
+                DependencyConstant.HIKARI, DependencyConstant.RABBIT_MQ));
         userChooseDependency.setHasProvider(true);
         userChooseDependency.setApiArtifactId("demo-Api");
         userChooseDependency.setProviderArtifactId("demo-Provider");
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "D:\\code\\mygitlab\\dubboPlugin\\src\\test\\resources\\testFiles";
+        String rootPath = "src/test/resources/testFiles";
         deleteDirectory(new File(rootPath));
         contentContext.setRootPath(rootPath);
         GenerateContentUtils.generateFiles(
@@ -66,7 +73,7 @@ public class GenerateUtilsTest {
 
 
     @Test
-    public void testGenerateFilesAsProviderWithNoDependencyWithZookeeperDependency(){
+    public void testGenerateFilesAsProviderWithNoDependencyWithZookeeperDependency() {
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
@@ -83,7 +90,7 @@ public class GenerateUtilsTest {
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "D:\\code\\mygitlab\\dubboPlugin\\src\\test\\resources\\testFiles";
+        String rootPath = "src/test/resources/testFiles";
         deleteDirectory(new File(rootPath));
         contentContext.setRootPath(rootPath);
         GenerateContentUtils.generateFiles(
@@ -102,7 +109,7 @@ public class GenerateUtilsTest {
 
 
     @Test
-    public void testGenerateFileAsConsumerWihtNoDependencyTest(){
+    public void testGenerateFileAsConsumerWihtNoDependencyTest() {
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
@@ -119,7 +126,7 @@ public class GenerateUtilsTest {
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "D:\\code\\mygitlab\\dubboPlugin\\src\\test\\resources\\testFiles";
+        String rootPath = "src/test/resources/testFiles";
         deleteDirectory(new File(rootPath));
         contentContext.setRootPath(rootPath);
         GenerateContentUtils.generateFiles(
