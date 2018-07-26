@@ -200,8 +200,6 @@ public class ProjectAssert {
         return hasFile(
                 "src/main/" + codeLocation + "/" + packageName + "/"
                         + expectedApplicationName + "." + extension,
-                "src/test/" + codeLocation + "/" + packageName + "/"
-                        + expectedApplicationName + "Tests." + extension,
                 "src/main/resources/application.properties");
     }
 

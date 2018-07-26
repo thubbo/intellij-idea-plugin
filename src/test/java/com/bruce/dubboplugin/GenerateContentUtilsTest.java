@@ -37,8 +37,8 @@ public class GenerateContentUtilsTest {
         userChooseDependency.setUseKotlin(false);
         userChooseDependency.setDependencyList(Lists.newArrayList());
         userChooseDependency.setHasProvider(true);
-        userChooseDependency.setApiArtifactId("demo-Api");
-        userChooseDependency.setProviderArtifactId("demo-Provider");
+        userChooseDependency.setApiArtifactId("demoApi");
+        userChooseDependency.setProviderArtifactId("demoProvider");
         userChooseDependency.setHasWebSupport(false);
         contentContext.setRootPath(projectRootPath);
         contentContext.setUserChooseDependency(
@@ -46,8 +46,8 @@ public class GenerateContentUtilsTest {
 
         File file = GenerateContentUtils.generateFiles(
                 contentContext);
-        ProjectAssert projectAssert = new ProjectAssert(file);
-        assertThat(projectAssert.isJavaProject("com.example.lala","Application"));
+        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()+"/"+userChooseDependency.getProviderArtifactId()));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider","Application"));
     }
 
 
@@ -66,14 +66,16 @@ public class GenerateContentUtilsTest {
                 DependencyConstant.FASTJSON, DependencyConstant.LOMBOK, DependencyConstant.PAGE_HELPER, DependencyConstant.REDIS, DependencyConstant.SPRING_RETRY, DependencyConstant.WEB_TOMCAT,
                 DependencyConstant.HIKARI, DependencyConstant.RABBIT_MQ));
         userChooseDependency.setHasProvider(true);
-        userChooseDependency.setApiArtifactId("demo-Api");
-        userChooseDependency.setProviderArtifactId("demo-Provider");
+        userChooseDependency.setApiArtifactId("demoApi");
+        userChooseDependency.setProviderArtifactId("demoProvider");
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
         contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
+        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()+"/"+userChooseDependency.getProviderArtifactId()));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider","Application"));
     }
 
 
@@ -98,6 +100,9 @@ public class GenerateContentUtilsTest {
         contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
+
+        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()+"/"+userChooseDependency.getProviderArtifactId()));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider","Application"));
     }
 
     boolean deleteDirectory(File directoryToBeDeleted) {
@@ -132,6 +137,10 @@ public class GenerateContentUtilsTest {
         contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
+
+
+        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demo","Application"));
     }
 
 }

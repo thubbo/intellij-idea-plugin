@@ -183,7 +183,7 @@ public class GenerateContentUtils {
     }
 
     private static void generateFilesForOnlyCustomerCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
-        String applicationName = userChooseDependency.getArtifactId() + "Application";
+        String applicationName = "Application";
 
         String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
 
