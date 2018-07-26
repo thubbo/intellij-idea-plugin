@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 
 public class GenerateContentUtils {
     public static File generateFiles(GenerateContentContext contentContext) {
-        //try to only use with file api, so that will be really easy to test
         String dir = contentContext.getRootPath();
         File dirFile = new File(dir);
         UserChooseDependency userChooseDependency = contentContext.getUserChooseDependency();
@@ -59,22 +58,10 @@ public class GenerateContentUtils {
             generateFilesForProviderCode(dir, userChooseDependency, language, model);
             return dirFile;
         }
-
-
-//        generateGitIgnore();
-//        root.refresh(false, true);
-
-//        if (userChooseDependency.isUseMaven()) {
-//            List<VirtualFile> pomFiles = MavenUtil.streamPomFiles(project, project.getBaseDir()).collect(Collectors.toList());
-//            MavenProjectsManager.getInstance(project).addManagedFilesOrUnignore(pomFiles);
-//        }
-
     }
 
     private static void generateFilesForProviderCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
-        String applicationName = userChooseDependency.getArtifactId() + "Application";
-
-//        String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
+        String applicationName = "Application";
 
         String providerDir = dir + "/" + userChooseDependency.getProviderArtifactId();
 

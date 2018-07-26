@@ -36,7 +36,7 @@ public class ProjectAssert {
 
     public static final String DEFAULT_PACKAGE_NAME = "com.example.demo";
 
-    public static final String DEFAULT_APPLICATION_NAME = "DemoApplication";
+    public static final String DEFAULT_APPLICATION_NAME = "Application";
 
     private final File dir;
 

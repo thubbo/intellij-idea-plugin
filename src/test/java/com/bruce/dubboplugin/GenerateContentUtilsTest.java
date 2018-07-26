@@ -8,6 +8,7 @@ import com.bruce.dubboplugin.dto.UserChooseDependency;
 import com.bruce.dubboplugin.dto.GenerateContentContext;
 import com.bruce.dubboplugin.helper.GenerateContentUtils;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,14 +16,21 @@ import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GenerateUtilsTest {
+public class GenerateContentUtilsTest {
+
+    private String projectRootPath = "src/test/resources/testFiles";
+
+    @Before
+    public void setUp(){
+        deleteDirectory(new File(projectRootPath));
+    }
     @Test
     public void testGenerateFilesAsProviderWithNoDependency() {
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
         userChooseDependency.setUseGradle(false);
-        userChooseDependency.setBootVersion("1.5.7");
+        userChooseDependency.setBootVersion("2.0.3");
         userChooseDependency.setGroupId("com.example.lala");
         userChooseDependency.setArtifactId("demo");
         userChooseDependency.setUseJava(true);
@@ -32,15 +40,14 @@ public class GenerateUtilsTest {
         userChooseDependency.setApiArtifactId("demo-Api");
         userChooseDependency.setProviderArtifactId("demo-Provider");
         userChooseDependency.setHasWebSupport(false);
+        contentContext.setRootPath(projectRootPath);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "src/test/resources/testFiles";
-        deleteDirectory(new File(rootPath));
-        contentContext.setRootPath(rootPath);
+
         File file = GenerateContentUtils.generateFiles(
                 contentContext);
         ProjectAssert projectAssert = new ProjectAssert(file);
-        assertThat(projectAssert.isJavaProject("com.example.lala","demo"));
+        assertThat(projectAssert.isJavaProject("com.example.lala","Application"));
     }
 
 
@@ -50,7 +57,7 @@ public class GenerateUtilsTest {
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
         userChooseDependency.setUseGradle(false);
-        userChooseDependency.setBootVersion("1.5.7");
+        userChooseDependency.setBootVersion("2.0.3");
         userChooseDependency.setGroupId("com.example.lala");
         userChooseDependency.setArtifactId("demo");
         userChooseDependency.setUseJava(true);
@@ -64,9 +71,7 @@ public class GenerateUtilsTest {
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "src/test/resources/testFiles";
-        deleteDirectory(new File(rootPath));
-        contentContext.setRootPath(rootPath);
+        contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
     }
@@ -78,7 +83,7 @@ public class GenerateUtilsTest {
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
         userChooseDependency.setUseGradle(false);
-        userChooseDependency.setBootVersion("1.5.7");
+        userChooseDependency.setBootVersion("2.0.3");
         userChooseDependency.setGroupId("com.example.lala");
         userChooseDependency.setArtifactId("demo");
         userChooseDependency.setUseJava(true);
@@ -90,9 +95,7 @@ public class GenerateUtilsTest {
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "src/test/resources/testFiles";
-        deleteDirectory(new File(rootPath));
-        contentContext.setRootPath(rootPath);
+        contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
     }
@@ -114,7 +117,7 @@ public class GenerateUtilsTest {
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
         userChooseDependency.setUseGradle(false);
-        userChooseDependency.setBootVersion("1.5.7");
+        userChooseDependency.setBootVersion("2.0.3");
         userChooseDependency.setGroupId("com.example.lala");
         userChooseDependency.setArtifactId("demo");
         userChooseDependency.setUseJava(true);
@@ -126,9 +129,7 @@ public class GenerateUtilsTest {
         userChooseDependency.setHasWebSupport(false);
         contentContext.setUserChooseDependency(
                 userChooseDependency);
-        String rootPath = "src/test/resources/testFiles";
-        deleteDirectory(new File(rootPath));
-        contentContext.setRootPath(rootPath);
+        contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
     }
