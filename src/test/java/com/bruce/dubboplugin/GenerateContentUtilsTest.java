@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +27,7 @@ public class GenerateContentUtilsTest {
     }
 
     @Test
-    public void testGenerateFilesAsProviderWithNoDependency() {
+    public void testGenerateFilesAsProviderWithNoDependency() throws IOException {
         GenerateContentContext contentContext = new GenerateContentContext();
         UserChooseDependency userChooseDependency = new UserChooseDependency();
         userChooseDependency.setUseMaven(true);
@@ -51,6 +52,7 @@ public class GenerateContentUtilsTest {
         assertThat(wholeProjectAssert.isMavenProject());
         ProjectAssert providerProjectAssert = new ProjectAssert(new File(contentContext.getRootPath() + "/" + userChooseDependency.getProviderArtifactId()));
         assertThat(providerProjectAssert.isJavaProject("com.example.lala.demoProvider", "Application"));
+        providerProjectAssert.sourceCodeAssert("src/main/java/com/example/lala/demoProvider/Application.java").equalsTo(getClass().getClassLoader().getResourceAsStream("project/java/spring-boot-2.0/Application-No-Web.gen"));
     }
 
 
