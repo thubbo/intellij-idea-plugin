@@ -21,9 +21,10 @@ public class GenerateContentUtilsTest {
     private String projectRootPath = "src/test/resources/testFiles";
 
     @Before
-    public void setUp(){
+    public void setUp() {
         deleteDirectory(new File(projectRootPath));
     }
+
     @Test
     public void testGenerateFilesAsProviderWithNoDependency() {
         GenerateContentContext contentContext = new GenerateContentContext();
@@ -46,8 +47,10 @@ public class GenerateContentUtilsTest {
 
         File file = GenerateContentUtils.generateFiles(
                 contentContext);
-        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()+"/"+userChooseDependency.getProviderArtifactId()));
-        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider","Application"));
+        ProjectAssert wholeProjectAssert = new ProjectAssert(file);
+        assertThat(wholeProjectAssert.isMavenProject());
+        ProjectAssert providerProjectAssert = new ProjectAssert(new File(contentContext.getRootPath() + "/" + userChooseDependency.getProviderArtifactId()));
+        assertThat(providerProjectAssert.isJavaProject("com.example.lala.demoProvider", "Application"));
     }
 
 
@@ -74,8 +77,8 @@ public class GenerateContentUtilsTest {
         contentContext.setRootPath(projectRootPath);
         GenerateContentUtils.generateFiles(
                 contentContext);
-        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()+"/"+userChooseDependency.getProviderArtifactId()));
-        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider","Application"));
+        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath() + "/" + userChooseDependency.getProviderArtifactId()));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider", "Application"));
     }
 
 
@@ -101,8 +104,8 @@ public class GenerateContentUtilsTest {
         GenerateContentUtils.generateFiles(
                 contentContext);
 
-        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()+"/"+userChooseDependency.getProviderArtifactId()));
-        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider","Application"));
+        ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath() + "/" + userChooseDependency.getProviderArtifactId()));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demoProvider", "Application"));
     }
 
     boolean deleteDirectory(File directoryToBeDeleted) {
@@ -138,7 +141,7 @@ public class GenerateContentUtilsTest {
 
 
         ProjectAssert projectAssert = new ProjectAssert(new File(contentContext.getRootPath()));
-        assertThat(projectAssert.isJavaProject("com.example.lala.demo","Application"));
+        assertThat(projectAssert.isJavaProject("com.example.lala.demo", "Application"));
     }
 
 }

@@ -26,9 +26,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,10 +77,10 @@ public class GenerateContentUtils {
         } else {
             String process = TemplateRenderer.INSTANCE.process("parent-pom.xml", model);
             writeText(new File(dir, "pom.xml"), process);
+            writeMavenWrapper(new File(dir));
         }
 
         String codeLocation = language;
-
 
         String extension = ("kotlin".equals(language) ? "kt" : language);
 
@@ -94,6 +92,30 @@ public class GenerateContentUtils {
 
         genreateFilesForProviderModule(model, applicationName, providerDir, providerPackageName, useGradle, codeLocation, extension, userChooseDependency);
     }
+
+    private static void writeMavenWrapper(File dir) {
+        writeContent(dir, "mvnw", "project/maven/mvnw");
+        writeContent(dir, "mvnw.cmd", "project/maven/mvnw.cmd");
+        File wrapperDir = new File(dir, ".mvn/wrapper");
+        wrapperDir.mkdirs();
+        writeContent(wrapperDir, "maven-wrapper.properties",
+                "project/maven/wrapper/maven-wrapper.properties");
+        writeContent(wrapperDir, "maven-wrapper.jar",
+                "project/maven/wrapper/maven-wrapper.jar");
+
+    }
+
+    private static void writeContent(File dir, String fileName, String resourcePath) {
+        InputStream resourceAsStream = GenerateContentUtils.class.getClassLoader().getResourceAsStream(resourcePath);
+        File theFile = new File(dir, fileName);
+        try {
+            IOUtils.copy(resourceAsStream, new FileOutputStream(theFile));
+        } catch (IOException e) {
+            throw new IllegalStateException("can't copy file to path",e);
+        }
+
+    }
+
 
     private static void genreateFilesForProviderModule(Map<String, Object> model, String applicationName, String providerDir, String providerPackageName, boolean useGradle, String codeLocation, String extension, UserChooseDependency userChooseDependency) {
         File resourceSrc = new File(providerDir + "/src/main/resources");
