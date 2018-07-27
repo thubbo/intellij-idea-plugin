@@ -4,6 +4,12 @@
     <vendor email="gejun123456@gmail.com" url="https://github.com/gejun123456/IntellijDubboPlugin">IntellijDubboPlugin</vendor>
 
     <description><![CDATA[
+    <p><h4>1.1</h4>
+            <ul>
+                <li>add mavenWrapper for plugin</li>
+                <li>use Application as main class</li>
+            </ul>
+     </p>
     <p><h4>1.0</h4>
             <ul>
                 <li>create dubbo+springboot project quickly</li>

@@ -26,17 +26,15 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GenerateContentUtils {
-    public static void generateFiles(GenerateContentContext contentContext) {
-        //try to only use with file api, so that will be really easy to test
+    public static File generateFiles(GenerateContentContext contentContext) {
         String dir = contentContext.getRootPath();
+        File dirFile = new File(dir);
         UserChooseDependency userChooseDependency = contentContext.getUserChooseDependency();
         Map<String, Object> model = resolveModel(userChooseDependency);
         File projectFile = new File(dir);
@@ -53,28 +51,15 @@ public class GenerateContentUtils {
 
         if (!userChooseDependency.isHasProvider()) {
             generateFilesForOnlyCustomerCode(dir, userChooseDependency, language, model);
-            return;
+            return dirFile;
         } else {
             generateFilesForProviderCode(dir, userChooseDependency, language, model);
-            return;
+            return dirFile;
         }
-
-
-
-//        generateGitIgnore();
-//        root.refresh(false, true);
-
-//        if (userChooseDependency.isUseMaven()) {
-//            List<VirtualFile> pomFiles = MavenUtil.streamPomFiles(project, project.getBaseDir()).collect(Collectors.toList());
-//            MavenProjectsManager.getInstance(project).addManagedFilesOrUnignore(pomFiles);
-//        }
-
     }
 
     private static void generateFilesForProviderCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
-        String applicationName = userChooseDependency.getArtifactId() + "Application";
-
-//        String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
+        String applicationName = "Application";
 
         String providerDir = dir + "/" + userChooseDependency.getProviderArtifactId();
 
@@ -92,10 +77,10 @@ public class GenerateContentUtils {
         } else {
             String process = TemplateRenderer.INSTANCE.process("parent-pom.xml", model);
             writeText(new File(dir, "pom.xml"), process);
+            writeMavenWrapper(new File(dir));
         }
 
         String codeLocation = language;
-
 
         String extension = ("kotlin".equals(language) ? "kt" : language);
 
@@ -107,6 +92,30 @@ public class GenerateContentUtils {
 
         genreateFilesForProviderModule(model, applicationName, providerDir, providerPackageName, useGradle, codeLocation, extension, userChooseDependency);
     }
+
+    private static void writeMavenWrapper(File dir) {
+        writeContent(dir, "mvnw", "project/maven/mvnw");
+        writeContent(dir, "mvnw.cmd", "project/maven/mvnw.cmd");
+        File wrapperDir = new File(dir, ".mvn/wrapper");
+        wrapperDir.mkdirs();
+        writeContent(wrapperDir, "maven-wrapper.properties",
+                "project/maven/wrapper/maven-wrapper.properties");
+        writeContent(wrapperDir, "maven-wrapper.jar",
+                "project/maven/wrapper/maven-wrapper.jar");
+
+    }
+
+    private static void writeContent(File dir, String fileName, String resourcePath) {
+        InputStream resourceAsStream = GenerateContentUtils.class.getClassLoader().getResourceAsStream(resourcePath);
+        File theFile = new File(dir, fileName);
+        try {
+            IOUtils.copy(resourceAsStream, new FileOutputStream(theFile));
+        } catch (IOException e) {
+            throw new IllegalStateException("can't copy file to path",e);
+        }
+
+    }
+
 
     private static void genreateFilesForProviderModule(Map<String, Object> model, String applicationName, String providerDir, String providerPackageName, boolean useGradle, String codeLocation, String extension, UserChooseDependency userChooseDependency) {
         File resourceSrc = new File(providerDir + "/src/main/resources");
@@ -196,7 +205,7 @@ public class GenerateContentUtils {
     }
 
     private static void generateFilesForOnlyCustomerCode(String dir, UserChooseDependency userChooseDependency, String language, Map<String, Object> model) {
-        String applicationName = userChooseDependency.getArtifactId() + "Application";
+        String applicationName = "Application";
 
         String pacakgeName = userChooseDependency.getGroupId() + "." + userChooseDependency.getArtifactId();
 
@@ -337,14 +346,14 @@ public class GenerateContentUtils {
         model.put("kotlinStdlibArtifactId", "kotlin-stdlib-jdk8");
 
         model.put("java8OrLater", "true");
-        model.put("applicationName", userChooseDependency.getArtifactId() + "Application");
+        model.put("applicationName", "Application");
         model.put("artifactId", userChooseDependency.getArtifactId());
         model.put("baseDir", userChooseDependency.getArtifactId());
 //        model.put("boms","{}");
         // TODO: 7/14/2018 need config them
         model.put("bootVersion", "2.0.3.RELEASE");
         model.put("build", "maven");
-        model.put("buildProperties", "io.spring.initializr.generator.BuildProperties@62547c95");
+//        model.put("buildProperties", "io.spring.initializr.generator.BuildProperties@62547c95");
         model.put("class", "class io.spring.initializr.generator.ProjectRequest");
         model.put("dependencies", "[]");
         model.put("description", "Demo project for Spring Boot");
