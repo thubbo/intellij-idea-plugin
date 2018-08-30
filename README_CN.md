@@ -1,4 +1,4 @@
-# IntellijDubboPlugin
+# Dubbo Intellij Idea 插件
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Jetbrains Plugins](https://img.shields.io/jetbrains/plugin/v/10946-a8translate.svg)][plugin]
@@ -80,24 +80,6 @@
 - 如果使用了zookeeper 请搭建好zookeeper服务器
 - 启动前 先修改生成项目 application.properties中的数据库连接配置 改成自己的数据库配置
 - 如果要跑生成例子中的testcase 请将项目下的schema.sql 在数据库中执行下
-
-该插件生成的例子为：https://github.com/gejun123456/dubboSpringbootDemo
-
-
-## 插件交流
-
-qq群号：796916754
-
-
-## 我的其他插件
-
-- MybatisCodeHelperPro  https://github.com/gejun123456/MyBatisCodeHelper-Pro
-
-- generateAllSetter https://github.com/gejun123456/intellij-generateAllSetMethod
-
-- StackOverFlow https://github.com/gejun123456/IntellijGoToStackOverFlow
-
-
 
 [plugin]: https://plugins.jetbrains.com/plugin/10946
 
