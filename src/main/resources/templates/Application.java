@@ -21,7 +21,7 @@ public class {{applicationName}} {
 		SpringApplication.run({{applicationName}}.class, args);
 
 		{{^hasWeb}}
-		new CountDownLatch(1).await(); //hold住应用，防止provider退出
+		new CountDownLatch(1).await(); //no web application should stop dubbo exit
 		{{/hasWeb}}
 	}
 	
